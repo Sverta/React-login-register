@@ -39,6 +39,7 @@ class RegisterForm extends Component {
         }).then(res => res.json())
             .then(data => {
                 // success
+  
                 this.setState({ fireRedirect: true })
             })
             .catch(err => console.log(err))
@@ -59,6 +60,9 @@ class RegisterForm extends Component {
                                 {/* form */}
                                 <form onSubmit={(e) => this.handleSubmit(e)}>
                                     <p className="h4 text-center py-4">Sign In</p>
+                                    {/* {fireRedirect==false && (<MDBAlert color="danger" >
+                                    Wrong login or password
+                                    </MDBAlert>)} */}
                                     <div className="grey-text">
                                         <Input
                                             label="Your name"

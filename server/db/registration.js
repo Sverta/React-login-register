@@ -3,7 +3,7 @@ import { Connection } from './index';
 export const all = (postData) => {
     // without callback
     return new Promise((resolve, reject) => {
-        console.log(postData);
+        // check if already exist the member
         Connection.query("SELECT COUNT(*) AS cnt FROM members WHERE login = ? ",
             postData.login, function (err, data) {
                 if (err) {
@@ -14,6 +14,7 @@ export const all = (postData) => {
                         // Already exist 
                         console.log('Already exist');
                     } else {
+                        // if not Post data to members table
                         Connection.query('INSERT INTO members SET ?', postData, (error, results) => {
                             if (error) {
                                 return reject(error);

@@ -9,17 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.post('/users', async (req, res) => {
-//     var postData = req.body;
-//     try {
-//         let users = await DB.Users.all(postData);
-//         res.end(JSON.stringify(users))
-//     } catch (e) {
-//         console.log(e);
-//         res.sendStatus(500);
-//     }
-// });
-
+// GET request to members table
 app.get('/members', async (req, res) => {
     try {
         let members = await DB.Members.all();
@@ -30,6 +20,7 @@ app.get('/members', async (req, res) => {
     }
 });
 
+// POST request to members table
 app.post('/postMembers', async (req, res) => {
     var postData = req.body;
     try {
@@ -37,6 +28,17 @@ app.post('/postMembers', async (req, res) => {
         res.end(JSON.stringify(members))
     } catch (e) {
         console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+// get request to task table
+app.get('/tasks', async (req, res) => {
+    try {
+        let tasks = await DB.Tasks.all();
+        res.json(tasks);
+    } catch (e) {
+         console.log(e);
         res.sendStatus(500);
     }
 });

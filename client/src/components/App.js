@@ -1,29 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles/App.css';
 import { Router, Route } from 'react-router-dom';
-import RegisterForm from './RegisterForm';
-import LoginForm from './LoginForm';
-import HomePage from './HomePage';
-import { createBrowserHistory } from 'history';
+import RegisterForm from './login-registr/RegisterForm';
+import LoginForm from './login-registr/LoginForm';
+import HomePage from './home/HomePage';
+import { history } from './history/history';
+import HeaderNavbar from './header/navbar'
+import PrivateRoute from './login-registr/auth'
 
-export const history = createBrowserHistory();
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <main className="App-body">
+  render() {
+    console.log(this);
+    return (
+      <div className="App">
         <Router history={history}>
-          <Route path="/" component={App}>
-            <Route exact path="/" component={LoginForm} />
-            <Route path="/home" component={HomePage} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/register" component={RegisterForm} />
-          </Route>
+          <PrivateRoute exact path="/" component={HeaderNavbar} />
         </Router>
-        {/* <RegisterForm /> */}
-      </main>
-    </div>
-  );
+        <main className="App-body">
+          <Router history={history}>
+            {/* <Route path="/" component={LoginForm}> */}
+              {/* <Route path="/" component={LoginForm} /> */}
+           
+              {/* <PrivateRoute path="/home" component={HomePage}/> */}
+              {/* <Route path="/home" component={HomePage} /> */}
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterForm} />
+              <PrivateRoute exact path="/" component={HomePage} />
+            {/* </Route> */}
+          </Router>
+          {/* <RegisterForm /> */}
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;
